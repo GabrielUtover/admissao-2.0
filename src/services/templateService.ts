@@ -161,16 +161,21 @@ export const templateService = {
   },
 
   async saveTemplateConfig(config: TemplateConfig): Promise<void> {
+    // Tipo interno com propriedades extras (usadas apenas no componente)
+    type ExtendedConfig = TemplateConfig & {
+      voluntaria: TemplateConfig['voluntaria'] & { _imageFilename?: string; _imageFile?: File }
+      involuntaria: TemplateConfig['involuntaria'] & { _imageFilename?: string; _imageFile?: File }
+    }
+    
+    const extendedConfig = config as ExtendedConfig
+    
     // Preparar configuração para salvar (remover campos temporários e normalizar caminhos)
-    const configToSave: Omit<TemplateConfig, 'voluntaria' | 'involuntaria'> & {
-      voluntaria: Omit<TemplateConfig['voluntaria'], '_imageFile' | '_imageFilename'>
-      involuntaria: Omit<TemplateConfig['involuntaria'], '_imageFile' | '_imageFilename'>
-    } = {
+    const configToSave: TemplateConfig = {
       voluntaria: {
         content: config.voluntaria.content,
         headerImage: config.voluntaria.headerImage?.startsWith('/config/images/')
           ? config.voluntaria.headerImage.replace('/config/images/', '')
-          : config.voluntaria._imageFilename || config.voluntaria.headerImage?.startsWith('data:')
+          : extendedConfig.voluntaria._imageFilename || config.voluntaria.headerImage?.startsWith('data:')
             ? 'cabecalho_voluntaria.png'
             : config.voluntaria.headerImage,
         boldTexts: config.voluntaria.boldTexts || [],
@@ -179,7 +184,7 @@ export const templateService = {
         content: config.involuntaria.content,
         headerImage: config.involuntaria.headerImage?.startsWith('/config/images/')
           ? config.involuntaria.headerImage.replace('/config/images/', '')
-          : config.involuntaria._imageFilename || config.involuntaria.headerImage?.startsWith('data:')
+          : extendedConfig.involuntaria._imageFilename || config.involuntaria.headerImage?.startsWith('data:')
             ? 'cabecalho_involuntaria.png'
             : config.involuntaria.headerImage,
         boldTexts: config.involuntaria.boldTexts || [],
@@ -203,8 +208,8 @@ export const templateService = {
     
     // Se houver imagens em base64, oferecer para exportá-las
     const hasBase64Images = 
-      (config.voluntaria.headerImage?.startsWith('data:') || config.voluntaria._imageFile) ||
-      (config.involuntaria.headerImage?.startsWith('data:') || config.involuntaria._imageFile)
+      (config.voluntaria.headerImage?.startsWith('data:') || extendedConfig.voluntaria._imageFile) ||
+      (config.involuntaria.headerImage?.startsWith('data:') || extendedConfig.involuntaria._imageFile)
     
     if (hasBase64Images) {
       alert('Configurações salvas!\n\n1. Substitua o arquivo public/config/templates.json pelo arquivo baixado.\n2. Se você fez upload de imagens, exporte-as usando o botão "Exportar Imagens" e coloque-as em public/config/images/')

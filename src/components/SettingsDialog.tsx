@@ -19,12 +19,18 @@ interface SettingsDialogProps {
   onOpenChange: (open: boolean) => void
 }
 
+// Tipo estendido para estado interno do componente (com propriedades extras)
+type ExtendedTemplateConfig = TemplateConfig & {
+  voluntaria: TemplateConfig['voluntaria'] & { _imageFilename?: string }
+  involuntaria: TemplateConfig['involuntaria'] & { _imageFilename?: string }
+}
+
 export function SettingsDialog({ open, onOpenChange }: SettingsDialogProps) {
   const [templates, setTemplates] = useState<Template>({
     voluntaria: '',
     involuntaria: '',
   })
-  const [config, setConfig] = useState<TemplateConfig>({
+  const [config, setConfig] = useState<ExtendedTemplateConfig>({
     voluntaria: { content: '', boldTexts: [] },
     involuntaria: { content: '', boldTexts: [] },
   })
@@ -61,7 +67,7 @@ export function SettingsDialog({ open, onOpenChange }: SettingsDialogProps) {
         await exportService.importConfig(file)
         // Recarregar configurações
         const savedTemplates = templateService.getTemplates()
-        const savedConfig = templateService.getTemplateConfig()
+        const savedConfig = await templateService.getTemplateConfig()
         setTemplates(savedTemplates)
         setConfig(savedConfig)
         alert('Configurações importadas com sucesso!')
@@ -200,7 +206,7 @@ export function SettingsDialog({ open, onOpenChange }: SettingsDialogProps) {
                         : `/config/images/${config.voluntaria.headerImage}`} 
                     alt="Preview cabeçalho" 
                     className="max-w-xs h-20 object-contain border rounded"
-                    onError={(e) => {
+                    onError={() => {
                       console.error('Erro ao carregar imagem:', config.voluntaria.headerImage)
                     }}
                   />
@@ -283,7 +289,7 @@ export function SettingsDialog({ open, onOpenChange }: SettingsDialogProps) {
                         : `/config/images/${config.involuntaria.headerImage}`} 
                     alt="Preview cabeçalho" 
                     className="max-w-xs h-20 object-contain border rounded"
-                    onError={(e) => {
+                    onError={() => {
                       console.error('Erro ao carregar imagem:', config.involuntaria.headerImage)
                     }}
                   />
