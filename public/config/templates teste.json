@@ -1,0 +1,13 @@
+{
+  "voluntaria": {
+    "content": "{{CABECALHO_IMAGEM}}\n\nLEITURA DE NORMAS - INTERNAÇÃO VOLUNTÁRIA\n\nPaciente: {{NOME_PACIENTE}}\nData de Nascimento: {{DATA_NASCIMENTO}}\nData de Admissão: {{DATA_ATUAL}}\n\nSenhor(a) {{NOME_PACIENTE}},\n\nInformamos que você está sendo internado(a) voluntariamente nesta unidade de saúde mental. Esta internação foi solicitada por você e você pode solicitar a alta a qualquer momento.\n\nVocê tem direito a:\n- Receber informações sobre seu tratamento\n- Participar das decisões sobre seu cuidado\n- Solicitar alta quando desejar\n- Receber visitas e manter contato com familiares\n- Ter acesso a um advogado se necessário\n\nAssinatura do Paciente: ______(TESTE GABRIEL)___________________\nData: {{DATA_ATUAL}}",
+    "headerImage": "cabecalho_voluntaria.png",
+    "boldTexts": []
+  },
+  "involuntaria": {
+    "content": "{{CABECALHO_IMAGEM}}\n\nLEITURA DE NORMAS - INTERNAÇÃO INVOLUNTÁRIA\n\nPaciente: {{NOME_PACIENTE}}\nData de Nascimento: {{DATA_NASCIMENTO}}\nData de Admissão: {{DATA_ATUAL}}\n\nSenhor(a) {{NOME_PACIENTE}},\n\nInformamos que você está sendo internado(a) de forma involuntária nesta unidade de saúde mental, conforme autorização médica e determinação legal.\n\nEsta internação foi necessária para sua proteção e tratamento. Você tem direito a:\n- Receber informações sobre seu tratamento\n- Ter acesso a um advogado\n- Receber visitas de familiares (conforme regulamento)\n- Solicitar revisão da sua internação\n- Participar, na medida do possível, das decisões sobre seu cuidado\n\nA alta será concedida quando houver melhora do quadro que motivou a internação, conforme avaliação médica.\n\nAssinatura do Responsável Técnico: _______(TESTE GABRIEL)__________________\nData: {{DATA_ATUAL}}",
+    "headerImage": "cabecalho_involuntaria.png",
+    "boldTexts": []
+  }
+}
+
