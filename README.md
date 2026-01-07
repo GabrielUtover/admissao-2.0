@@ -42,3 +42,42 @@ A senha padrão para acessar as configurações é: **Incons55522**
 npm run build
 ```
 
+## Deploy na Vercel
+
+O projeto está configurado para deploy automático na Vercel.
+
+### Opção 1: Deploy via GitHub (Recomendado)
+
+1. Faça push do código para o repositório GitHub
+2. Acesse [vercel.com](https://vercel.com)
+3. Conecte sua conta do GitHub
+4. Clique em "Add New Project"
+5. Selecione o repositório `admissao-2.0`
+6. A Vercel detectará automaticamente as configurações:
+   - Framework: Vite
+   - Build Command: `npm run build`
+   - Output Directory: `dist`
+7. Clique em "Deploy"
+
+### Opção 2: Deploy via CLI
+
+1. Instale a CLI da Vercel:
+```bash
+npm i -g vercel
+```
+
+2. Execute o comando na raiz do projeto:
+```bash
+vercel
+```
+
+3. Siga as instruções no terminal
+
+### Configurações
+
+O arquivo `vercel.json` já está configurado com:
+- Build command: `npm run build`
+- Output directory: `dist`
+- Framework: Vite
+- Rewrites para SPA (Single Page Application)
+
